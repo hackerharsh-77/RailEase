@@ -30,6 +30,12 @@ public class UserBookingService {
 
     }
 
+    public UserBookingService() throws IOException {
+        File users = new File(USERS_PATH);
+        userList = objectMapper.readValue(users, new TypeReference<List<User>>() {
+        });
+    }
+
         public Boolean loginUser() {
             Optional<User> foundUser = userList.stream().filter(user1 -> {
                 return user1.getName().equals(user.getName()) && UserServiceUtil.checkPassword(user.getPassword(), user1.getHashedPassword());
@@ -52,4 +58,5 @@ public class UserBookingService {
             objectMapper.writeValue(usersFile, userList);
         }
 
+        //26:51
 }
